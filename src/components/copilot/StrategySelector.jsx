@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { ChevronDown } from 'lucide-react'
-import { assets } from '../../data/tradeSignals'
 import {
   COPILOT_STRATEGIES,
   getStrategyById,
@@ -170,10 +169,6 @@ export default function StrategySelector({ strategyId, onChange }) {
         }}
         className="group flex w-full items-center gap-2 rounded-ds-sm py-0.5 text-left transition hover:bg-white/[0.03]"
       >
-        <span className="flex size-7 shrink-0 items-center justify-center rounded-ds-sm border border-border-glass bg-white/5">
-          <img src={assets.iconAiScience} alt="" className="size-4" />
-        </span>
-
         <span className="min-w-0 flex-1">
           <span className="block text-[9px] font-semibold uppercase leading-[12px] tracking-[0.06em] text-text-disabled">
             Strategy
