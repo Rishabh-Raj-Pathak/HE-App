@@ -10,6 +10,9 @@
   --color-he-primary: rgba(255, 255, 255, 0.95);
   --color-he-highlight: rgba(255, 255, 255, 0.92);
   --color-he-pill: #e1e1e1;
+  --color-he-accent: #22ffff;
+  --color-he-accent-soft: rgba(34, 255, 255, 0.1);
+  --color-he-accent-border: rgba(34, 255, 255, 0.35);
 }
 
 *,

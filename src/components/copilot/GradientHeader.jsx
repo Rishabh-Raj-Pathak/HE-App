@@ -2,10 +2,18 @@ import { assets } from '../../data/tradeSignals'
 import SharedHeader from './SharedHeader'
 import PNLHero from './PNLHero'
 import StatsCard from './StatsCard'
-import FilterTabs from './FilterTabs'
-import HighSignalBanner from './HighSignalBanner'
+import DiscoveryBar from './DiscoveryBar'
 
-export default function GradientHeader({ onConnectWallet }) {
+export default function GradientHeader({
+  onConnectWallet,
+  strategyId,
+  categoryId,
+  onStrategyChange,
+  onCategoryChange,
+  expiresIn,
+  onRefresh,
+  activeCount,
+}) {
   return (
     <section className="relative h-[386px] shrink-0">
       <img
@@ -24,10 +32,15 @@ export default function GradientHeader({ onConnectWallet }) {
         <StatsCard />
       </div>
       <div className="absolute inset-x-0 top-[274px] z-10">
-        <FilterTabs />
-      </div>
-      <div className="absolute inset-x-[10px] top-[329px] z-10">
-        <HighSignalBanner />
+        <DiscoveryBar
+          strategyId={strategyId}
+          categoryId={categoryId}
+          onStrategyChange={onStrategyChange}
+          onCategoryChange={onCategoryChange}
+          expiresIn={expiresIn}
+          activeCount={activeCount}
+          onRefresh={onRefresh}
+        />
       </div>
     </section>
   )
