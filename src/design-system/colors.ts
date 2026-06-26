@@ -97,6 +97,8 @@ export const gradients = {
   cardAlt: 'linear-gradient(175.4deg, rgb(14, 14, 14) 8.49%, rgb(9, 9, 9) 54.15%, rgb(6, 6, 6) 91.51%)',
   cardAlt2:
     'linear-gradient(163.34deg, rgb(14, 14, 14) 8.49%, rgb(9, 9, 9) 54.15%, rgb(6, 6, 6) 91.51%)',
+  cardElevated:
+    'linear-gradient(160.25deg, rgb(14, 14, 14) 8.49%, rgb(9, 9, 9) 54.15%, rgb(6, 6, 6) 91.51%)',
   headerGlow: 'radial-gradient(ellipse at center, rgba(34, 255, 255, 0.15) 0%, transparent 70%)',
   profileFade: 'linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0) 100%)',
   goldTitle: colors.gold.gradient,

@@ -77,18 +77,23 @@ export default function StrategySelector({ strategyId, onChange }) {
     ? createPortal(
         <div
           id="strategy-popover"
-          className="fixed z-[100] overflow-hidden rounded-ds-lg border border-border-panel bg-bg-surface shadow-ds-xl"
+          className="fixed z-[100] relative overflow-hidden rounded-ds-lg shadow-[0_4px_24px_rgba(0,0,0,0.7)]"
           style={{
             top: popoverStyle.top,
             left: popoverStyle.left,
             width: popoverStyle.width,
+            backgroundImage: 'var(--gradient-card-elevated)',
           }}
         >
-          <p className="border-b border-border-default px-ds-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-accent-amber">
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-ds-card-inset"
+          />
+          <p className="relative border-b border-white/[0.04] px-ds-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-text-disabled">
             Choose strategy
           </p>
 
-          <div className="border-b border-border-default p-ds-2">
+          <div className="relative border-b border-white/[0.04] p-ds-2">
             {COPILOT_STRATEGIES.map((s) => {
               const isActive = s.id === strategyId
               return (
@@ -123,7 +128,7 @@ export default function StrategySelector({ strategyId, onChange }) {
             })}
           </div>
 
-          <div className="p-ds-3">
+          <div className="relative p-ds-3">
             <div className="mb-2 flex items-start justify-between gap-2">
               <p className="text-[13px] font-bold leading-[19px] text-text-highlight">
                 {strategy.name}

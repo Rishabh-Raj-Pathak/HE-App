@@ -1,14 +1,14 @@
 export const RISK_VARIANT = {
   'LOW RISK': 'success',
-  'MEDIUM RISK': 'warning',
+  'MEDIUM RISK': 'neutral',
   'HIGH RISK': 'danger',
 }
 
 export const RISK_BADGE_CLASSES = {
-  success: 'border-success-default/40 bg-success-default/10 text-success-default',
-  warning: 'border-accent-amber/60 bg-accent-amber/10 text-accent-amber',
+  success: 'border-success-default/26 bg-success-default/14 text-success-default',
+  neutral: 'border-white/20 bg-white/5 text-text-muted',
   danger: 'border-danger-default/40 bg-danger-default/10 text-danger-default',
-  default: 'border-border-default bg-white/5 text-text-muted',
+  default: 'border-white/10 bg-white/5 text-text-disabled',
 }
 
 export function formatRiskLabel(riskLevel) {
@@ -20,5 +20,6 @@ export function getRiskVariant(riskLevel) {
 }
 
 export function getRiskBadgeClass(riskLevel) {
-  return RISK_BADGE_CLASSES[getRiskVariant(riskLevel)] ?? RISK_BADGE_CLASSES.default
+  const variant = getRiskVariant(riskLevel)
+  return RISK_BADGE_CLASSES[variant] ?? RISK_BADGE_CLASSES.default
 }

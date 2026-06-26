@@ -108,6 +108,12 @@
     rgb(9, 9, 9) 54.15%,
     rgb(6, 6, 6) 91.51%
   );
+  --gradient-card-elevated: linear-gradient(
+    160.25deg,
+    rgb(14, 14, 14) 8.49%,
+    rgb(9, 9, 9) 54.15%,
+    rgb(6, 6, 6) 91.51%
+  );
 }
 
 *,

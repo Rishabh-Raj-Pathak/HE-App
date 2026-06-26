@@ -20,13 +20,13 @@ export default function DiscoveryBar({
 
   return (
     <section className="relative z-10 shrink-0 px-ds-3 pb-ds-3">
-      <Card variant="surface" padding="none" className="overflow-hidden rounded-[10px]">
-        <div className="border-b border-border-default px-ds-3 py-2.5">
+      <Card variant="elevated" padding="none">
+        <div className="border-b border-white/[0.04] px-ds-3 py-2.5">
           <StrategySelector strategyId={strategyId} onChange={onStrategyChange} />
         </div>
 
         {categories.length > 0 ? (
-          <div className="flex h-[33px] items-center border-b border-border-default">
+          <div className="flex h-[33px] items-center border-b border-white/[0.04]">
             <CategoryChips
               categories={categories}
               activeId={categoryId}
@@ -40,7 +40,7 @@ export default function DiscoveryBar({
             <img src={assets.iconClock} alt="" className="size-[13px] shrink-0 opacity-70" />
             <p className="truncate text-xs leading-[18px] text-text-muted">
               Expires in{' '}
-              <span className="font-bold text-text-highlight">{expiresIn}</span>
+              <span className="font-bold text-[rgba(255,255,255,0.92)]">{expiresIn}</span>
             </p>
           </div>
 
@@ -48,10 +48,10 @@ export default function DiscoveryBar({
             <p className="text-[12.5px] font-medium leading-[18.75px] text-text-muted">
               {activeCount} active
             </p>
-            <IconButton label="Refresh" onClick={onRefresh} className="size-[14px]">
+            <IconButton label="Refresh" onClick={onRefresh} className="size-6">
               <img src={assets.iconRefresh} alt="" className="size-[14px]" />
             </IconButton>
-            <IconButton label="Share" onClick={onShare} className="size-[14px] opacity-35">
+            <IconButton label="Share" onClick={onShare} className="size-6 opacity-35">
               <img src={assets.iconShare} alt="" className="size-[14px]" />
             </IconButton>
           </div>
