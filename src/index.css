@@ -1,7 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap");
 @import "tailwindcss";
 
 @theme {
+  /* Legacy aliases — keep for gradual migration */
   --font-manrope: "Manrope", system-ui, sans-serif;
   --color-he-success: #4b9b72;
   --color-he-success-bright: #00a03a;
@@ -13,6 +15,99 @@
   --color-he-accent: #22ffff;
   --color-he-accent-soft: rgba(34, 255, 255, 0.1);
   --color-he-accent-border: rgba(34, 255, 255, 0.35);
+
+  /* Design system tokens */
+  --font-sans: "Manrope", system-ui, sans-serif;
+  --font-display: "Onest", "Manrope", system-ui, sans-serif;
+
+  --color-bg-default: #000000;
+  --color-bg-surface: #171717;
+  --color-bg-elevated: #0e0e0e;
+  --color-bg-muted: #3a3a3a;
+  --color-bg-overlay: rgba(0, 0, 0, 0.7);
+
+  --color-text-primary: rgba(255, 255, 255, 0.95);
+  --color-text-secondary: rgba(255, 255, 255, 0.8);
+  --color-text-highlight: rgba(255, 255, 255, 0.92);
+  --color-text-muted: rgba(255, 255, 255, 0.5);
+  --color-text-subtle: #888888;
+  --color-text-inverse: #000000;
+
+  --color-accent-default: #22ffff;
+  --color-accent-aquamarine: #00f3b6;
+  --color-accent-soft: rgba(34, 255, 255, 0.1);
+  --color-accent-border: rgba(34, 255, 255, 0.35);
+  --color-accent-amber: #f2b500;
+
+  --color-border-subtle: rgba(255, 255, 255, 0.05);
+  --color-border-default: rgba(255, 255, 255, 0.1);
+  --color-border-medium: rgba(255, 255, 255, 0.12);
+  --color-border-strong: rgba(255, 255, 255, 0.14);
+  --color-border-input: rgba(255, 255, 255, 0.5);
+  --color-border-dashed: rgba(255, 255, 255, 0.7);
+
+  --color-success-default: #4b9b72;
+  --color-success-bright: #00a03a;
+  --color-success-badge: #4ade80;
+  --color-danger-default: #b05858;
+  --color-warning-default: #f2b500;
+  --color-info-default: #2b7fff;
+
+  --spacing-ds-1: 4px;
+  --spacing-ds-2: 8px;
+  --spacing-ds-3: 12px;
+  --spacing-ds-4: 16px;
+  --spacing-ds-5: 20px;
+  --spacing-ds-6: 24px;
+
+  --radius-ds-sm: 8px;
+  --radius-ds-md: 14px;
+  --radius-ds-lg: 16px;
+  --radius-ds-xl: 21px;
+  --radius-ds-sheet: 50px;
+  --radius-ds-pill: 80px;
+  --radius-ds-full: 9999px;
+
+  --shadow-ds-sm: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-ds-md: 0 4px 12px rgba(0, 0, 0, 0.7);
+  --shadow-ds-lg: 0 4px 24px rgba(0, 0, 0, 0.5);
+  --shadow-ds-xl: 0 8px 32px rgba(0, 0, 0, 0.85);
+  --shadow-ds-card-inset: inset 1px 0 4px rgba(255, 255, 255, 0.05),
+    inset -1px 0 0 rgba(255, 255, 255, 0.05),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05),
+    inset 0 -1px 0 rgba(255, 255, 255, 0.05);
+
+  --color-bg-terminal: #0f0e0d;
+  --color-bg-panel: #121212;
+  --color-bg-card-dark: #0a0a0a;
+  --color-text-disabled: rgba(255, 255, 255, 0.28);
+  --color-text-slate: #717182;
+  --color-gold-default: #dcc395;
+  --color-gold-light: #e8d5b5;
+  --color-gold-mid: #ccb17f;
+  --color-border-panel: #2d2d2d;
+  --color-border-glass: rgba(255, 255, 255, 0.08);
+
+  --shadow-ds-vault-glow: 0 0 15px rgba(204, 177, 127, 0.4);
+  --shadow-ds-sheet-up: 0 -8px 40px rgba(0, 0, 0, 0.6);
+
+  --gradient-gold-title: linear-gradient(
+    180deg,
+    rgb(255, 255, 255) 0%,
+    rgb(232, 213, 181) 50%,
+    rgb(204, 177, 127) 100%
+  );
+  --gradient-gold-vault: linear-gradient(
+    241.46deg,
+    rgba(22, 20, 18, 0.76) 6.21%,
+    rgba(14, 12, 10, 0.78) 84.07%
+  );
+  --gradient-card: linear-gradient(
+    177.71deg,
+    rgb(14, 14, 14) 8.49%,
+    rgb(9, 9, 9) 54.15%,
+    rgb(6, 6, 6) 91.51%
+  );
 }
 
 *,

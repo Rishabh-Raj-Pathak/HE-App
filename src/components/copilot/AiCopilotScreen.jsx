@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import useCopilotDiscovery from '../../hooks/useCopilotDiscovery'
 import GradientHeader from './GradientHeader'
+import DiscoveryBar from './DiscoveryBar'
 import MarketSection from './MarketSection'
 import MobileShell from '../layout/MobileShell'
 import BottomNav from '../layout/BottomNav'
@@ -12,8 +13,8 @@ export default function AiCopilotScreen() {
 
   return (
     <MobileShell>
-      <GradientHeader
-        onConnectWallet={() => setWalletOpen(true)}
+      <GradientHeader onConnectWallet={() => setWalletOpen(true)} />
+      <DiscoveryBar
         strategyId={discovery.strategyId}
         categoryId={discovery.categoryId}
         onStrategyChange={discovery.setStrategy}

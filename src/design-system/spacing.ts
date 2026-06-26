@@ -1,0 +1,51 @@
+/** 4px base scale — aligned with Figma spacing/sm (8) and screen margins (24) */
+export const spacing = {
+  0: '0px',
+  0.5: '2px',
+  1: '4px',
+  1.5: '6px',
+  2: '8px',
+  2.5: '10px',
+  3: '12px',
+  3.5: '13px',
+  4: '16px',
+  5: '20px',
+  6: '24px',
+  7: '28px',
+  8: '32px',
+  9: '36px',
+  10: '40px',
+  12: '48px',
+  14: '56px',
+  16: '64px',
+} as const
+
+export const layout = {
+  screenMaxWidth: '394px',
+  screenMargin: spacing[6],
+  screenMarginSm: spacing[3],
+  sectionGap: spacing[2],
+  cardPadding: spacing[3],
+  cardPaddingLg: spacing[4],
+  listRowPaddingX: spacing[3],
+  buttonPaddingX: spacing[4],
+  buttonPaddingY: spacing[2],
+  inputPaddingX: spacing[4],
+  inputPaddingY: spacing[3],
+  bottomNavPaddingX: '28px',
+  bottomNavPaddingY: '7px',
+  headerHeight: '58px',
+  bottomNavHeight: '59px',
+  walletRowHeight: '51px',
+  chipHeight: '26px',
+  filterChipHeight: '33px',
+  discoveryBarHeight: '41px',
+  tokenRowHeight: '71px',
+  positionCardHeight: '86px',
+  metricCardHeight: '78px',
+  summaryTileHeight: '93px',
+  iconButtonSize: '42px',
+} as const
+
+export type Spacing = typeof spacing
+export type Layout = typeof layout

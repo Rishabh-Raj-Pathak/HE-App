@@ -1,28 +1,62 @@
 import { useEffect, useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronDown } from 'lucide-react'
+import { assets } from '../../data/tradeSignals'
 import {
   COPILOT_STRATEGIES,
   getStrategyById,
 } from '../../data/copilotStrategies'
+import {
+  formatRiskLabel,
+  getRiskBadgeClass,
+} from './strategyRiskStyles'
 
-const RISK_STYLES = {
-  'LOW RISK': 'border-he-success/50 text-he-success',
-  'MEDIUM RISK': 'border-white/25 text-he-muted',
-  'HIGH RISK': 'border-he-danger/50 text-he-danger',
+function RiskBadge({ riskLevel, className = '' }) {
+  return (
+    <span
+      className={`inline-flex shrink-0 items-center rounded-ds-sm border px-1.5 py-px text-[8px] font-semibold uppercase leading-[10px] ${getRiskBadgeClass(riskLevel)} ${className}`}
+    >
+      {formatRiskLabel(riskLevel)}
+    </span>
+  )
 }
 
 export default function StrategySelector({ strategyId, onChange }) {
   const [open, setOpen] = useState(false)
   const containerRef = useRef(null)
+  const buttonRef = useRef(null)
+  const [popoverStyle, setPopoverStyle] = useState({ top: 0, left: 0, width: 280 })
   const strategy = getStrategyById(strategyId)
+
+  useEffect(() => {
+    if (!open || !buttonRef.current) return
+
+    function updatePosition() {
+      const rect = buttonRef.current.getBoundingClientRect()
+      setPopoverStyle({
+        top: rect.bottom + 8,
+        left: rect.left,
+        width: Math.min(320, window.innerWidth - 32),
+      })
+    }
+
+    updatePosition()
+    window.addEventListener('resize', updatePosition)
+    window.addEventListener('scroll', updatePosition, true)
+    return () => {
+      window.removeEventListener('resize', updatePosition)
+      window.removeEventListener('scroll', updatePosition, true)
+    }
+  }, [open])
 
   useEffect(() => {
     if (!open) return
 
     function handleClickOutside(e) {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setOpen(false)
-      }
+      const popover = document.getElementById('strategy-popover')
+      const inTrigger = containerRef.current?.contains(e.target)
+      const inPopover = popover?.contains(e.target)
+      if (!inTrigger && !inPopover) setOpen(false)
     }
 
     function handleEscape(e) {
@@ -39,46 +73,22 @@ export default function StrategySelector({ strategyId, onChange }) {
 
   if (!strategy) return null
 
-  const riskStyle = RISK_STYLES[strategy.riskLevel] ?? RISK_STYLES['MEDIUM RISK']
-
-  return (
-    <div ref={containerRef} className="relative shrink-0">
-      <button
-        type="button"
-        aria-expanded={open}
-        aria-label={`Strategy: ${strategy.name}`}
-        onClick={() => setOpen((prev) => !prev)}
-        className="flex h-[33px] shrink-0 items-center gap-2 rounded-[20px] border border-he-accent-border bg-he-accent-soft px-2.5"
-      >
-        <span className="text-[9px] font-semibold uppercase tracking-[0.08em] text-he-accent">
-          Strategy
-        </span>
-        <span
-          aria-hidden
-          className="h-3 w-px shrink-0 bg-white/20"
-        />
-        <span className="whitespace-nowrap text-[12.5px] font-medium leading-[18.75px] text-white">
-          {strategy.name}
-        </span>
-        <ChevronDown
-          className={`size-3 shrink-0 text-he-muted transition-transform ${open ? 'rotate-180' : ''}`}
-          strokeWidth={2}
-        />
-      </button>
-
-      {open && (
+  const popover = open
+    ? createPortal(
         <div
-          className="absolute left-0 top-[calc(100%+6px)] z-30 w-[260px] overflow-hidden rounded-xl border border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.8)]"
+          id="strategy-popover"
+          className="fixed z-[100] overflow-hidden rounded-ds-lg border border-border-panel bg-bg-surface shadow-ds-xl"
           style={{
-            backgroundImage:
-              'linear-gradient(177.71deg, rgb(14, 14, 14) 8.49%, rgb(9, 9, 9) 54.15%, rgb(6, 6, 6) 91.51%)',
+            top: popoverStyle.top,
+            left: popoverStyle.left,
+            width: popoverStyle.width,
           }}
         >
-          <p className="border-b border-white/10 px-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-he-accent">
+          <p className="border-b border-border-default px-ds-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-accent-amber">
             Choose strategy
           </p>
 
-          <div className="border-b border-white/10 p-2">
+          <div className="border-b border-border-default p-ds-2">
             {COPILOT_STRATEGIES.map((s) => {
               const isActive = s.id === strategyId
               return (
@@ -90,53 +100,89 @@ export default function StrategySelector({ strategyId, onChange }) {
                     setOpen(false)
                   }}
                   className={[
-                    'flex w-full items-center rounded-lg px-2.5 py-2 text-left text-[12px] leading-[18px]',
-                    isActive
-                      ? 'bg-he-accent-soft font-semibold text-white'
-                      : 'font-normal text-he-muted hover:bg-white/5',
+                    'flex w-full items-center justify-between gap-2 rounded-ds-sm px-2.5 py-2 text-left transition',
+                    isActive ? 'bg-white/5' : 'hover:bg-white/[0.03]',
                   ].join(' ')}
                 >
-                  {s.name}
+                  <div className="min-w-0">
+                    <p
+                      className={[
+                        'truncate text-xs leading-[18px]',
+                        isActive ? 'font-semibold text-text-highlight' : 'font-normal text-text-muted',
+                      ].join(' ')}
+                    >
+                      {s.name}
+                    </p>
+                    <p className="truncate text-[10px] leading-[14px] text-text-disabled">
+                      {s.timeframe} · {formatRiskLabel(s.riskLevel)} risk
+                    </p>
+                  </div>
+                  <RiskBadge riskLevel={s.riskLevel} />
                 </button>
               )
             })}
           </div>
 
-          <div className="p-3">
+          <div className="p-ds-3">
             <div className="mb-2 flex items-start justify-between gap-2">
-              <p className="text-[13px] font-bold leading-[19px] text-white">
+              <p className="text-[13px] font-bold leading-[19px] text-text-highlight">
                 {strategy.name}
               </p>
-              <span
-                className={`shrink-0 rounded-full border px-2 py-0.5 text-[9px] font-semibold leading-[12px] ${riskStyle}`}
-              >
-                {strategy.riskLevel}
-              </span>
+              <RiskBadge riskLevel={strategy.riskLevel} className="px-2 py-0.5 text-[9px] leading-3" />
             </div>
-            <p className="mb-3 text-[11px] leading-[16px] text-he-muted">
-              {strategy.description}
-            </p>
+            <p className="mb-3 text-[11px] leading-4 text-text-muted">{strategy.description}</p>
             <div className="space-y-1.5">
               <div>
-                <p className="text-[9px] font-semibold uppercase tracking-wide text-he-muted">
+                <p className="text-[9px] font-semibold uppercase tracking-wide text-text-disabled">
                   Timeframe
                 </p>
-                <p className="text-[11px] leading-[16px] text-white/80">
-                  {strategy.timeframe}
-                </p>
+                <p className="text-[11px] leading-4 text-text-secondary">{strategy.timeframe}</p>
               </div>
               <div>
-                <p className="text-[9px] font-semibold uppercase tracking-wide text-he-muted">
+                <p className="text-[9px] font-semibold uppercase tracking-wide text-text-disabled">
                   Best for
                 </p>
-                <p className="text-[11px] leading-[16px] text-white/80">
-                  {strategy.bestFor}
-                </p>
+                <p className="text-[11px] leading-4 text-text-secondary">{strategy.bestFor}</p>
               </div>
             </div>
           </div>
-        </div>
-      )}
+        </div>,
+        document.body,
+      )
+    : null
+
+  return (
+    <div ref={containerRef} className="relative w-full">
+      <button
+        ref={buttonRef}
+        type="button"
+        aria-expanded={open}
+        aria-label={`Strategy: ${strategy.name}`}
+        onClick={() => setOpen((prev) => !prev)}
+        className="group flex w-full items-center gap-2 rounded-ds-sm py-0.5 text-left transition hover:bg-white/[0.03]"
+      >
+        <span className="flex size-7 shrink-0 items-center justify-center rounded-ds-sm border border-border-glass bg-white/5">
+          <img src={assets.iconAiScience} alt="" className="size-4" />
+        </span>
+
+        <span className="min-w-0 flex-1">
+          <span className="flex items-center gap-1.5">
+            <span className="truncate text-base font-bold leading-6 tracking-[-0.32px] text-text-highlight">
+              {strategy.name}
+            </span>
+            <RiskBadge riskLevel={strategy.riskLevel} />
+          </span>
+          <span className="block truncate text-[10px] leading-[14px] text-text-disabled">
+            {strategy.timeframe} · {strategy.bestFor}
+          </span>
+        </span>
+
+        <ChevronDown
+          className={`size-4 shrink-0 text-text-muted transition-transform group-hover:text-text-secondary ${open ? 'rotate-180' : ''}`}
+          strokeWidth={2}
+        />
+      </button>
+      {popover}
     </div>
   )
 }

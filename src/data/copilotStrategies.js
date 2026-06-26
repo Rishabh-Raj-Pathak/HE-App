@@ -2,6 +2,7 @@ export const COPILOT_STRATEGIES = [
   {
     id: 'momentum-based',
     name: 'Momentum Based',
+    shortName: 'Momentum',
     riskLevel: 'MEDIUM RISK',
     description:
       'Trade high-momentum setups using technical signals across short to medium timeframes.',
@@ -17,6 +18,7 @@ export const COPILOT_STRATEGIES = [
   {
     id: 'high-conviction',
     name: 'High Conviction',
+    shortName: 'High Conv.',
     riskLevel: 'LOW RISK',
     description:
       'Surface fewer, higher-quality setups with strict confluence and risk filters.',
@@ -31,6 +33,7 @@ export const COPILOT_STRATEGIES = [
   {
     id: 'v3-risk-engine',
     name: 'V3 Risk Engine',
+    shortName: 'V3 Engine',
     riskLevel: 'HIGH RISK',
     description:
       'AI-driven prompt + risk engine for aggressive short-term setups.',
