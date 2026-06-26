@@ -25,6 +25,7 @@ export default function StrategySelector({ strategyId, onChange }) {
   const [open, setOpen] = useState(false)
   const containerRef = useRef(null)
   const buttonRef = useRef(null)
+  const popoverRef = useRef(null)
   const [popoverStyle, setPopoverStyle] = useState({ top: 0, left: 0, width: 280 })
   const strategy = getStrategyById(strategyId)
 
@@ -53,9 +54,8 @@ export default function StrategySelector({ strategyId, onChange }) {
     if (!open) return
 
     function handleClickOutside(e) {
-      const popover = document.getElementById('strategy-popover')
       const inTrigger = containerRef.current?.contains(e.target)
-      const inPopover = popover?.contains(e.target)
+      const inPopover = popoverRef.current?.contains(e.target)
       if (!inTrigger && !inPopover) setOpen(false)
     }
 
@@ -63,10 +63,10 @@ export default function StrategySelector({ strategyId, onChange }) {
       if (e.key === 'Escape') setOpen(false)
     }
 
-    document.addEventListener('mousedown', handleClickOutside)
+    document.addEventListener('pointerdown', handleClickOutside)
     document.addEventListener('keydown', handleEscape)
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside)
+      document.removeEventListener('pointerdown', handleClickOutside)
       document.removeEventListener('keydown', handleEscape)
     }
   }, [open])
@@ -76,8 +76,8 @@ export default function StrategySelector({ strategyId, onChange }) {
   const popover = open
     ? createPortal(
         <div
-          id="strategy-popover"
-          className="fixed z-[100] relative overflow-hidden rounded-ds-lg shadow-[0_4px_24px_rgba(0,0,0,0.7)]"
+          ref={popoverRef}
+          className="fixed z-[200] overflow-hidden rounded-ds-lg shadow-[0_4px_24px_rgba(0,0,0,0.7)]"
           style={{
             top: popoverStyle.top,
             left: popoverStyle.left,
@@ -89,11 +89,11 @@ export default function StrategySelector({ strategyId, onChange }) {
             aria-hidden
             className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-ds-card-inset"
           />
-          <p className="relative border-b border-white/[0.04] px-ds-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-text-disabled">
+          <p className="relative px-ds-3 py-2 text-[9px] font-semibold uppercase tracking-[0.08em] text-text-disabled">
             Choose strategy
           </p>
 
-          <div className="relative border-b border-white/[0.04] p-ds-2">
+          <div className="relative p-ds-2">
             {COPILOT_STRATEGIES.map((s) => {
               const isActive = s.id === strategyId
               return (
@@ -128,7 +128,7 @@ export default function StrategySelector({ strategyId, onChange }) {
             })}
           </div>
 
-          <div className="relative p-ds-3">
+          <div className="relative p-ds-3 pt-0">
             <div className="mb-2 flex items-start justify-between gap-2">
               <p className="text-[13px] font-bold leading-[19px] text-text-highlight">
                 {strategy.name}
@@ -162,8 +162,12 @@ export default function StrategySelector({ strategyId, onChange }) {
         ref={buttonRef}
         type="button"
         aria-expanded={open}
+        aria-haspopup="listbox"
         aria-label={`Strategy: ${strategy.name}`}
-        onClick={() => setOpen((prev) => !prev)}
+        onClick={(e) => {
+          e.stopPropagation()
+          setOpen((prev) => !prev)
+        }}
         className="group flex w-full items-center gap-2 rounded-ds-sm py-0.5 text-left transition hover:bg-white/[0.03]"
       >
         <span className="flex size-7 shrink-0 items-center justify-center rounded-ds-sm border border-border-glass bg-white/5">
@@ -171,6 +175,9 @@ export default function StrategySelector({ strategyId, onChange }) {
         </span>
 
         <span className="min-w-0 flex-1">
+          <span className="block text-[9px] font-semibold uppercase leading-[12px] tracking-[0.06em] text-text-disabled">
+            Strategy
+          </span>
           <span className="flex items-center gap-1.5">
             <span className="truncate text-base font-bold leading-6 tracking-[-0.32px] text-text-highlight">
               {strategy.name}

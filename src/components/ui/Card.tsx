@@ -56,10 +56,10 @@ export default function Card({
       {(variant === 'elevated' || insetHighlight) && (
         <span
           aria-hidden
-          className="pointer-events-none absolute inset-0 rounded-[inherit] shadow-ds-card-inset"
+          className="pointer-events-none absolute inset-0 z-0 rounded-[inherit] shadow-ds-card-inset"
         />
       )}
-      {children}
+      <div className="relative z-[1]">{children}</div>
     </div>
   )
 }
