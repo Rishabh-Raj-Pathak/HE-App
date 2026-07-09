@@ -5,6 +5,7 @@ export interface AppNavItem {
   label?: string
   iconSrc: string
   active?: boolean
+  onClick?: () => void
 }
 
 export interface AppBottomNavProps {
@@ -18,6 +19,7 @@ export default function AppBottomNav({ items }: AppBottomNavProps) {
         id: item.id,
         label: item.label,
         active: item.active,
+        onClick: item.onClick,
         icon: <img src={item.iconSrc} alt="" className="size-6" />,
       }))}
     />

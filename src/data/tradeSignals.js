@@ -3,6 +3,7 @@ import iconClock from '../assets/figma/icon-clock.png'
 import iconRefresh from '../assets/figma/icon-refresh.png'
 import iconShare from '../assets/figma/icon-share.png'
 import iconArrow from '../assets/figma/icon-arrow.svg'
+import iconProfile from '../assets/figma/icon-profile.svg'
 import navAi from '../assets/figma/nav-ai.png'
 import navTrading from '../assets/figma/nav-trading.png'
 import navWallet from '../assets/figma/nav-wallet.png'
@@ -17,6 +18,7 @@ export const assets = {
   iconRefresh,
   iconShare,
   iconArrow,
+  iconProfile,
   gradientBg,
   nav: {
     ai: navAi,

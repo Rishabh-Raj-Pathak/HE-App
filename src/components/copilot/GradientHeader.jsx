@@ -3,7 +3,7 @@ import SharedHeader from './SharedHeader'
 import PNLHero from './PNLHero'
 import StatsCard from './StatsCard'
 
-export default function GradientHeader({ onConnectWallet }) {
+export default function GradientHeader({ onConnectWallet, onProfile }) {
   return (
     <section className="relative h-[274px] shrink-0">
       <img
@@ -13,7 +13,7 @@ export default function GradientHeader({ onConnectWallet }) {
       />
 
       <div className="absolute inset-x-0 top-0 z-10">
-        <SharedHeader onConnectWallet={onConnectWallet} />
+        <SharedHeader onConnectWallet={onConnectWallet} onProfile={onProfile} />
       </div>
       <div className="absolute inset-x-0 top-[47px] z-10">
         <PNLHero />

@@ -7,13 +7,16 @@ import MobileShell from '../layout/MobileShell'
 import BottomNav from '../layout/BottomNav'
 import ConnectWalletOverlay from '../wallet/ConnectWalletOverlay'
 
-export default function AiCopilotScreen() {
+export default function AiCopilotScreen({ onProfile, onNavigate }) {
   const [walletOpen, setWalletOpen] = useState(false)
   const discovery = useCopilotDiscovery()
 
   return (
     <MobileShell>
-      <GradientHeader onConnectWallet={() => setWalletOpen(true)} />
+      <GradientHeader
+        onConnectWallet={() => setWalletOpen(true)}
+        onProfile={onProfile}
+      />
       <DiscoveryBar
         strategyId={discovery.strategyId}
         categoryId={discovery.categoryId}
@@ -24,7 +27,7 @@ export default function AiCopilotScreen() {
         onRefresh={discovery.refresh}
       />
       <MarketSection setups={discovery.setups} />
-      <BottomNav />
+      <BottomNav activeId="ai" onNavigate={onNavigate} />
       <ConnectWalletOverlay
         open={walletOpen}
         onClose={() => setWalletOpen(false)}

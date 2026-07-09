@@ -7,12 +7,8 @@ export default function SharedHeader({ onConnectWallet, onProfile }) {
   return (
     <Header
       leading={
-        <IconButton
-          label="Profile"
-          onClick={onProfile}
-          className="size-[42px] rounded-full border border-border-glass bg-white/5"
-        >
-          <img src={assets.nav.user} alt="" className="size-6 rounded-full" />
+        <IconButton label="Profile" onClick={onProfile} className="size-[42px]">
+          <img src={assets.iconProfile} alt="" className="h-5 w-[14px]" />
         </IconButton>
       }
       trailing={

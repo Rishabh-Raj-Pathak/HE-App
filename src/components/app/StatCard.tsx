@@ -1,4 +1,4 @@
-export interface StatItem {
+ export interface StatItem {
   label: string
   value: string
 }
